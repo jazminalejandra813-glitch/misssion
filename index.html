@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission - Juego de Desplazamiento</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="gameContainer">
+        <!-- Main Menu -->
+        <div id="mainMenu" class="screen active">
+            <div class="menu-content">
+                <h1>MISSION</h1>
+                <p class="subtitle">Elude los obstáculos y recolecta recompensas</p>
+                <div class="menu-buttons">
+                    <button id="playBtn" class="btn btn-primary">JUGAR</button>
+                    <button id="battleBtn" class="btn btn-secondary">BATALLA</button>
+                    <button id="settingsBtn" class="btn btn-secondary">CONFIGURACIÓN</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Character Selection -->
+        <div id="characterSelection" class="screen">
+            <div class="selection-content">
+                <h2>Selecciona tu Personaje</h2>
+                <div id="characterGrid" class="character-grid"></div>
+                <button id="backCharBtn" class="btn btn-secondary">ATRÁS</button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="screen">
+            <div class="hud">
+                <div class="hud-left">
+                    <div class="character-name" id="characterName"></div>
+                    <div class="level-info">Nivel: <span id="levelDisplay">1</span></div>
+                </div>
+                <div class="hud-center">
+                    <div class="lives-display" id="livesDisplay"></div>
+                </div>
+                <div class="hud-right">
+                    <div class="coins-display" id="coinsDisplay"></div>
+                    <div class="score-display">Puntos: <span id="scoreDisplay">0</span></div>
+                </div>
+            </div>
+
+            <canvas id="gameCanvas"></canvas>
+
+            <!-- Game Menu (Pause) -->
+            <div id="gameMenu" class="overlay-menu hidden">
+                <div class="menu-box">
+                    <h3>PAUSA</h3>
+                    <button id="resumeBtn" class="btn btn-primary">CONTINUAR</button>
+                    <button id="restartBtn" class="btn btn-secondary">REINICIAR</button>
+                    <button id="mainMenuBtn" class="btn btn-secondary">MENÚ PRINCIPAL</button>
+                    <button id="exitBtn" class="btn btn-danger">SALIR</button>
+                </div>
+            </div>
+
+            <!-- Victory/Defeat Screen -->
+            <div id="resultScreen" class="overlay-menu hidden">
+                <div class="result-box">
+                    <h2 id="resultTitle"></h2>
+                    <p id="resultMessage"></p>
+                    <button id="nextLevelBtn" class="btn btn-primary">SIGUIENTE NIVEL</button>
+                    <button id="retryBtn" class="btn btn-secondary">REINTENTAR</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Battle Mode -->
+        <div id="battleScreen" class="screen">
+            <div class="battle-container">
+                <div class="battle-player player-left">
+                    <div class="player-name" id="battlePlayer1Name"></div>
+                    <div class="health-bar" id="healthBar1"></div>
+                    <canvas id="battleCanvas1"></canvas>
+                </div>
+
+                <div class="battle-controls">
+                    <div class="controls-section">
+                        <h3>Jugador 1</h3>
+                        <div class="movement-controls">
+                            <button id="p1Left" class="control-btn">←</button>
+                            <button id="p1Jump" class="control-btn">↑</button>
+                            <button id="p1Right" class="control-btn">→</button>
+                            <button id="p1Crouch" class="control-btn">↓</button>
+                        </div>
+                        <div class="attack-buttons">
+                            <button id="p1Coin0" class="coin-btn coin-btn-0" title="Moneda 1"></button>
+                            <button id="p1Coin1" class="coin-btn coin-btn-1" title="Moneda 2"></button>
+                            <button id="p1Coin2" class="coin-btn coin-btn-2" title="Moneda 3"></button>
+                            <button id="p1Coin3" class="coin-btn coin-btn-3" title="Moneda 4"></button>
+                            <button id="p1Coin4" class="coin-btn coin-btn-4" title="Moneda 5"></button>
+                        </div>
+                    </div>
+
+                    <div class="vs-section">
+                        <p>VS</p>
+                    </div>
+
+                    <div class="controls-section">
+                        <h3>Jugador 2</h3>
+                        <div class="movement-controls">
+                            <button id="p2Left" class="control-btn">←</button>
+                            <button id="p2Jump" class="control-btn">↑</button>
+                            <button id="p2Right" class="control-btn">→</button>
+                            <button id="p2Crouch" class="control-btn">↓</button>
+                        </div>
+                        <div class="attack-buttons">
+                            <button id="p2Coin0" class="coin-btn coin-btn-0" title="Moneda 1"></button>
+                            <button id="p2Coin1" class="coin-btn coin-btn-1" title="Moneda 2"></button>
+                            <button id="p2Coin2" class="coin-btn coin-btn-2" title="Moneda 3"></button>
+                            <button id="p2Coin3" class="coin-btn coin-btn-3" title="Moneda 4"></button>
+                            <button id="p2Coin4" class="coin-btn coin-btn-4" title="Moneda 5"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="battle-player player-right">
+                    <div class="player-name" id="battlePlayer2Name"></div>
+                    <div class="health-bar" id="healthBar2"></div>
+                    <canvas id="battleCanvas2"></canvas>
+                </div>
+            </div>
+
+            <button id="backBattleBtn" class="btn btn-secondary battle-back">ATRÁS</button>
+        </div>
+
+        <!-- Settings Screen -->
+        <div id="settingsScreen" class="screen">
+            <div class="settings-content">
+                <h2>Configuración</h2>
+                <div class="settings-group">
+                    <label>Volumen: <span id="volumeValue">100</span>%</label>
+                    <input type="range" id="volumeSlider" min="0" max="100" value="100">
+                </div>
+                <div class="settings-group">
+                    <label>
+                        <input type="checkbox" id="sfxToggle" checked>
+                        Efectos de Sonido
+                    </label>
+                </div>
+                <div class="settings-group">
+                    <label>
+                        <input type="checkbox" id="musicToggle" checked>
+                        Música de Fondo
+                    </label>
+                </div>
+                <button id="backSettingsBtn" class="btn btn-secondary">ATRÁS</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/constants.js"></script>
+    <script src="js/characters.js"></script>
+    <script src="js/coins.js"></script>
+    <script src="js/gameState.js"></script>
+    <script src="js/renderer.js"></script>
+    <script src="js/physics.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/battle.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
