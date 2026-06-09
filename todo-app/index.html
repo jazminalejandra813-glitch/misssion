@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App - Gestor de Tareas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>📝 MI LISTA DE TAREAS</h1>
+            <p class="subtitle">Organiza tu día productivamente</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Section -->
+            <section class="input-section">
+                <div class="input-wrapper">
+                    <input
+                        type="text"
+                        id="todoInput"
+                        class="todo-input"
+                        placeholder="Añade una nueva tarea..."
+                        autocomplete="off"
+                    />
+                    <button id="addBtn" class="add-btn" title="Añadir tarea">
+                        <span>➕</span>
+                    </button>
+                </div>
+                <div class="input-options">
+                    <select id="prioritySelect" class="priority-select">
+                        <option value="low">Baja prioridad</option>
+                        <option value="medium" selected>Normal</option>
+                        <option value="high">Alta prioridad</option>
+                    </select>
+                    <select id="categorySelect" class="category-select">
+                        <option value="general">General</option>
+                        <option value="trabajo">Trabajo</option>
+                        <option value="personal">Personal</option>
+                        <option value="compras">Compras</option>
+                        <option value="salud">Salud</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- Stats Section -->
+            <section class="stats-section">
+                <div class="stat">
+                    <span class="stat-label">Total:</span>
+                    <span class="stat-value" id="totalCount">0</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Completadas:</span>
+                    <span class="stat-value completed" id="completedCount">0</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Pendientes:</span>
+                    <span class="stat-value pending" id="pendingCount">0</span>
+                </div>
+            </section>
+
+            <!-- Filter Section -->
+            <section class="filter-section">
+                <button class="filter-btn active" data-filter="all">Todas</button>
+                <button class="filter-btn" data-filter="active">Pendientes</button>
+                <button class="filter-btn" data-filter="completed">Completadas</button>
+                <button class="filter-btn" data-filter="high">Alta Prioridad</button>
+            </section>
+
+            <!-- Sort Section -->
+            <section class="sort-section">
+                <button class="sort-btn" id="sortDateBtn" title="Ordenar por fecha">
+                    📅 Fecha
+                </button>
+                <button class="sort-btn" id="sortPriorityBtn" title="Ordenar por prioridad">
+                    ⭐ Prioridad
+                </button>
+                <button class="sort-btn" id="sortCategoryBtn" title="Ordenar por categoría">
+                    📂 Categoría
+                </button>
+            </section>
+
+            <!-- Todo List -->
+            <section class="todo-list-section">
+                <div id="todoList" class="todo-list">
+                    <!-- Tareas se cargarán aquí -->
+                </div>
+                <div id="emptyState" class="empty-state">
+                    <div class="empty-icon">📭</div>
+                    <p class="empty-title">¡No hay tareas!</p>
+                    <p class="empty-subtitle">Crea una nueva tarea para comenzar</p>
+                </div>
+            </section>
+
+            <!-- Action Buttons -->
+            <section class="action-buttons">
+                <button id="clearCompletedBtn" class="action-btn danger">
+                    🗑️ Limpiar Completadas
+                </button>
+                <button id="clearAllBtn" class="action-btn danger danger-secondary">
+                    🔴 Limpiar Todo
+                </button>
+                <button id="exportBtn" class="action-btn primary">
+                    💾 Exportar
+                </button>
+                <button id="importBtn" class="action-btn primary">
+                    📥 Importar
+                </button>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Creado con ❤️ | Tus tareas se guardan automáticamente</p>
+        </footer>
+    </div>
+
+    <!-- Hidden input for file import -->
+    <input type="file" id="importFile" accept=".json" style="display: none;" />
+
+    <script src="js/todoApp.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
